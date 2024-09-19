@@ -5,7 +5,7 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@relume_io/relume-ui/dist/**/*.{js,ts,jsx,tsx}"
+    "./node_modules/@relume_io/relume-ui/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     screens: {
@@ -75,6 +75,7 @@ module.exports = {
         4: "1rem", // 16px
         5: "1.25rem", // 20px
         6: "1.5rem", // 24px
+        7: "1.75rem", // 24px
         8: "2rem", // 32px
         10: "2.5rem", // 40px
         12: "3rem", // 48px
