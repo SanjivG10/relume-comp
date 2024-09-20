@@ -1,13 +1,13 @@
 "use client";
 
-import { useMediaQuery, type ButtonProps } from "@relume_io/relume-ui";
-import Link from "next/link";
-import LaptopIcon from "../icons/LaptopIcon";
-import ChevronIcon from "../icons/ChevronIcon";
-import MobileIcon from "../icons/MobileIcon";
-import { useState } from "react";
+import { type ButtonProps } from "@relume_io/relume-ui";
 import classNames from "classnames";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { useState } from "react";
+import ChevronIcon from "../icons/ChevronIcon";
+import LaptopIcon from "../icons/LaptopIcon";
+import MobileIcon from "../icons/MobileIcon";
 
 type ImageProps = {
   url?: string;
