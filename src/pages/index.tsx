@@ -6,11 +6,14 @@ export default function Home() {
   const [selectedDevice, setSelectedDevice] = useState<DeviceType>("desktop");
 
   return (
-    <div className="flex h-[300vh] flex-col bg-gray-100">
-      <Navbar selectedDevice={selectedDevice} setSelectedDevice={setSelectedDevice} />
-      <div className="flex justify-center">
-        <Header109 selectedDevice={selectedDevice} />
+    <div className="flex flex-col">
+      <div className="flex flex-col bg-gray-100">
+        <Navbar selectedDevice={selectedDevice} setSelectedDevice={setSelectedDevice} />
+        <div className="flex justify-center">
+          <Header109 selectedDevice={selectedDevice} />
+        </div>
       </div>
+      <div className="min-h-screen"></div>
     </div>
   );
 }

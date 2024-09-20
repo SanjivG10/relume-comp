@@ -16,7 +16,7 @@ export type DeviceType = "desktop" | "mobile";
 
 export const Navbar = ({ selectedDevice, setSelectedDevice }: Props) => {
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 grid h-16 min-h-16 grid-cols-3 items-center justify-center gap-0 gap-x-0 gap-y-0 border-b-[1px] border-b-[#16161626] bg-white px-10">
+    <nav className="fixed left-0 right-0 top-0 z-50 hidden h-16 min-h-16 grid-cols-3 items-center justify-center gap-0 gap-x-0 gap-y-0 border-b-[1px] border-b-[#16161626] bg-white px-10 lg:grid">
       <div className="justify-self flex items-center gap-x-4">
         <Link
           href="#"
