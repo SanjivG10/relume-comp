@@ -1,63 +1,22 @@
 "use client";
 
-import { type ButtonProps } from "@relume_io/relume-ui";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
 import ChevronIcon from "../icons/ChevronIcon";
 import LaptopIcon from "../icons/LaptopIcon";
 import MobileIcon from "../icons/MobileIcon";
 
-type ImageProps = {
-  url?: string;
-  src: string;
-  alt?: string;
-};
-
-type MegaMenuLink = {
-  url: string;
-  image: ImageProps;
-  title: string;
-  description: string;
-  button?: ButtonProps;
-};
-
-type CategoryLink = {
-  title: string;
-  links: MegaMenuLink[];
-};
-
-type MegaMenuLinkProps = {
-  categoryLinks: CategoryLink[];
-  featuredSections: {
-    title: string;
-    links: MegaMenuLink[];
-  };
-  button: ButtonProps;
-};
-
-type LinkProps = {
-  title: string;
-  url: string;
-  megaMenu?: MegaMenuLinkProps;
-};
-
 type Props = {
-  logo: ImageProps;
-  links: LinkProps[];
-  buttons: ButtonProps[];
+  selectedDevice: DeviceType;
+  setSelectedDevice: React.Dispatch<React.SetStateAction<DeviceType>>;
 };
 
-type DeviceType = "desktop" | "mobile";
+export type DeviceType = "desktop" | "mobile";
 
-export type Navbar5Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
-
-export const Navbar = () => {
-  const [selectedDevice, setSelectedDevice] = useState<DeviceType>("desktop");
-
+export const Navbar = ({ selectedDevice, setSelectedDevice }: Props) => {
   return (
-    <nav className="grid h-16 min-h-16 grid-cols-3 items-center justify-center gap-0 gap-x-0 gap-y-0 border-b-[1px] border-b-[#16161626] px-10">
+    <nav className="fixed left-0 right-0 top-0 z-50 grid h-16 min-h-16 grid-cols-3 items-center justify-center gap-0 gap-x-0 gap-y-0 border-b-[1px] border-b-[#16161626] bg-white px-10">
       <div className="justify-self flex items-center gap-x-4">
         <Link
           href="#"
