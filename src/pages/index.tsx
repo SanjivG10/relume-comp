@@ -12,7 +12,6 @@ export default function Home() {
         <Navbar selectedDevice={selectedDevice} setSelectedDevice={setSelectedDevice} />
         <div className="flex justify-center">
           <Header109 selectedDevice={selectedDevice} />
-          {/* <Header111 selectedDevice={selectedDevice} /> */}
         </div>
       </div>
     </div>

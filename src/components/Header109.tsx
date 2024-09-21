@@ -1,4 +1,4 @@
-import { Button, Heading, Text } from "@relume_io/relume-ui";
+import { Button, Heading, Text, useMediaQuery } from "@relume_io/relume-ui";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { DeviceType } from "./common/Navbar";
@@ -21,6 +21,10 @@ export const Header109 = ({ selectedDevice }: Props) => {
   const { scrollY } = useScroll({
     container: scrollContainerRef,
   });
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const renderMobile = isMobile || selectedDevice === "mobile";
+
   const [containerHeight, setContainerHeight] = useState(0);
 
   useEffect(() => {
@@ -43,13 +47,13 @@ export const Header109 = ({ selectedDevice }: Props) => {
   const width = useTransform(
     scrollY,
     [containerHeight * 0.1, containerHeight * 0.5],
-    ["100%", selectedDevice === "desktop" ? "10%" : "50%"],
+    ["100%", renderMobile ? "50%" : "10%"],
   );
 
   const height = useTransform(
     scrollY,
     [containerHeight * 0.1, containerHeight * 0.5],
-    ["100%", selectedDevice === "desktop" ? "20%" : "25%"],
+    ["100%", renderMobile ? "25%" : "20%"],
   );
 
   const translateY = useTransform(
@@ -124,10 +128,10 @@ const VideoModal = ({ width, height, translateY }: VideoModalProps) => {
             loading="lazy"
             src="https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316216244aee67_Placeholder%20Video%20-%20Landscape.svg"
           />
-          <div className="absolute flex h-20 w-20 items-center justify-center text-white">
+          <div className="absolute bottom-0 left-0 right-0 top-0 z-10 bg-black/50"></div>
+          <div className="absolute z-20 flex h-20 w-20 items-center justify-center text-white opacity-100">
             <PlayIcon />
           </div>
-          <div className="absolute bottom-0 left-0 right-0 top-0 z-10 bg-black/50"></div>
         </motion.a>
       </DialogTrigger>
       <DialogPortal>
