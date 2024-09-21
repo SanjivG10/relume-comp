@@ -11,8 +11,8 @@ export default function Home() {
       <div className="flex flex-col bg-gray-100">
         <Navbar selectedDevice={selectedDevice} setSelectedDevice={setSelectedDevice} />
         <div className="flex justify-center">
-          {/* <Header109 selectedDevice={selectedDevice} /> */}
-          <Header111 selectedDevice={selectedDevice} />
+          <Header109 selectedDevice={selectedDevice} />
+          {/* <Header111 selectedDevice={selectedDevice} /> */}
         </div>
       </div>
     </div>
