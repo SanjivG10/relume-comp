@@ -36,7 +36,7 @@ export const Navbar = ({ selectedDevice, setSelectedDevice }: Props) => {
             "relative flex h-16 w-16 cursor-pointer items-center justify-center px-2",
             {
               "opacity-100": selectedDevice === "desktop",
-              "opacity-50": selectedDevice === "mobile", // Adjust opacity for mobile
+              "opacity-50": selectedDevice === "mobile",
             },
           )}
           onClick={() => setSelectedDevice("desktop")}
@@ -60,7 +60,7 @@ export const Navbar = ({ selectedDevice, setSelectedDevice }: Props) => {
             "relative flex h-16 w-16 cursor-pointer items-center justify-center px-2",
             {
               "opacity-100": selectedDevice === "mobile",
-              "opacity-50": selectedDevice === "desktop", // Adjust opacity for mobile
+              "opacity-50": selectedDevice === "desktop",
             },
           )}
           onClick={() => setSelectedDevice("mobile")}

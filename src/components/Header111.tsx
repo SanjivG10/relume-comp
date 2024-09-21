@@ -87,7 +87,7 @@ export const Header111 = (props: Header83Props) => {
           </div>
         </div>
       </div>
-      <div className="h-screen"></div>
+      <div className="h-screen bg-white"></div>
     </section>
   );
 };
