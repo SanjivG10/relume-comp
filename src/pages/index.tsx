@@ -1,4 +1,5 @@
 import { DeviceType, Navbar } from "@/components/common/Navbar";
+import { Header109 } from "@/components/Header109";
 import { Header111 } from "@/components/Header111";
 import { useState } from "react";
 
@@ -14,7 +15,6 @@ export default function Home() {
           <Header111 selectedDevice={selectedDevice} />
         </div>
       </div>
-      <div className="min-h-screen"></div>
     </div>
   );
 }
