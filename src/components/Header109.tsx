@@ -1,19 +1,19 @@
 "use client";
 
-import { Button, Heading, Text, useMediaQuery } from "@relume_io/relume-ui";
 import type { ButtonProps } from "@relume_io/relume-ui";
+import { Button, Heading, Text, useMediaQuery } from "@relume_io/relume-ui";
 
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 
-import { useState, useEffect, useRef } from "react";
-import classNames from "classnames";
 import {
   Dialog,
   DialogContent,
-  DialogTrigger,
-  DialogPortal,
   DialogOverlay,
+  DialogPortal,
+  DialogTrigger,
 } from "@relume_io/relume-ui";
+import clsx from "clsx";
+import { useEffect, useRef, useState } from "react";
 import PlayIcon from "./icons/PlayIcon";
 
 type ImageProps = {
@@ -24,6 +24,7 @@ type ImageProps = {
 type Props = {
   heading: string;
   description: string;
+  video: string;
   buttons: ButtonProps[];
   images: ImageProps[];
   selectedDevice: "mobile" | "desktop";
@@ -32,7 +33,7 @@ type Props = {
 export type Header109Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
 
 export const Header109 = (props: Header109Props) => {
-  const { heading, description, buttons, images, selectedDevice } = {
+  const { heading, description, buttons, images, selectedDevice, video } = {
     ...Header109Defaults,
     ...props,
   } as Props;
@@ -85,7 +86,7 @@ export const Header109 = (props: Header109Props) => {
   return (
     <section
       id="relume"
-      className={classNames("relative flex overflow-hidden bg-white transition-all", {
+      className={clsx("relative flex overflow-hidden bg-white transition-all", {
         "max-w-sm": selectedDevice === "mobile",
         "w-full": selectedDevice === "desktop",
       })}
@@ -97,7 +98,13 @@ export const Header109 = (props: Header109Props) => {
         <div className="h-[300vh]">
           <div className="sticky top-0 flex w-full flex-col items-center justify-center">
             <div className="z-1 relative flex h-screen w-full items-center justify-center ">
-              <VideoModal width={width} height={height} translateY={translateY} images={images} />
+              <VideoModal
+                width={width}
+                height={height}
+                translateY={translateY}
+                images={images}
+                video={video}
+              />
             </div>
             <div className="relative items-center justify-center pb-28 pt-6">
               <div className="max-w-lg px-[5%]">
@@ -127,9 +134,12 @@ type VideoModalProps = {
   height: MotionValue<string>;
   translateY: MotionValue<string>;
   images: ImageProps[];
+  video: string;
 };
 
-const VideoModal = ({ width, height, translateY, images }: VideoModalProps) => {
+const VideoModal = ({ width, height, translateY, images, video }: VideoModalProps) => {
+  const [isIframeLoaded, setIsIframeLoaded] = useState(false);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -156,14 +166,17 @@ const VideoModal = ({ width, height, translateY, images }: VideoModalProps) => {
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay className="bg-black/90" />
-        <DialogContent className="max-h-lg block h-[50vh] max-w-lg overflow-y-scroll px-[5%] py-16 md:w-[90%] md:px-12 md:py-16 lg:w-full lg:max-w-lg lg:p-16">
+        <DialogContent>
+          {!isIframeLoaded && <Loading className="mx-auto size-16 text-white" />}
           <iframe
-            width="100%"
-            height="100%"
-            className="absolute bottom-0 left-0 right-0 top-0"
-            src="//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F8DKLYsikxTs%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D8DKLYsikxTs&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F8DKLYsikxTs%2Fhqdefault.jpg&key=c4e54deccf4d4ec997a64902e9a30300&type=text%2Fhtml&schema=youtube"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            className={clsx("z-0 mx-auto aspect-video h-full w-full md:w-[738px] lg:w-[940px]", {
+              visible: isIframeLoaded,
+              hidden: !isIframeLoaded,
+            })}
+            src={video}
+            allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
+            onLoad={() => setIsIframeLoaded(true)}
           ></iframe>
         </DialogContent>
       </DialogPortal>
@@ -183,6 +196,34 @@ export const Header109Defaults: Props = {
     },
   ],
   selectedDevice: "desktop",
+  video: "https://www.youtube.com/embed/8DKLYsikxTs?si=Ch9W0KrDWWUiCMMW",
+};
+
+const Loading = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" {...props}>
+      <g fill="none" stroke="currentColor">
+        <path
+          strokeDasharray={60}
+          strokeDashoffset={60}
+          strokeOpacity={0.3}
+          d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18Z"
+        >
+          <animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0" />
+        </path>
+        <path strokeDasharray={15} strokeDashoffset={15} d="M12 3a9 9 0 0 1 9 9">
+          <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0" />
+          <animateTransform
+            attributeName="transform"
+            dur="1.5s"
+            repeatCount="indefinite"
+            type="rotate"
+            values="0 12 12;360 12 12"
+          />
+        </path>
+      </g>
+    </svg>
+  );
 };
 
 export default VideoModal;

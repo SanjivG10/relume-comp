@@ -2,9 +2,9 @@
 
 import type { ButtonProps } from "@relume_io/relume-ui";
 import { Button, useMediaQuery } from "@relume_io/relume-ui";
-import classNames from "classnames";
 import { motion } from "framer-motion";
 import { DeviceType } from "./common/Navbar";
+import clsx from "clsx";
 
 type ImageProps = {
   src: string;
@@ -34,7 +34,7 @@ export const Header111 = (props: Header111Props) => {
   return (
     <section
       id="relume"
-      className={classNames("relative w-full transition-all duration-500 ease-in-out", {
+      className={clsx("relative w-full transition-all duration-500 ease-in-out", {
         "max-w-sm": selectedDevice === "mobile",
         "w-full": selectedDevice === "desktop",
       })}
@@ -49,7 +49,7 @@ export const Header111 = (props: Header111Props) => {
           >
             <div className="h-full py-16 md:py-24">
               <div
-                className={classNames("grid h-full gap-x-12 md:gap-x-20", {
+                className={clsx("grid h-full gap-x-12 md:gap-x-20", {
                   "grid-cols-1": renderMobile,
                   "grid-cols-2": !renderMobile,
                 })}

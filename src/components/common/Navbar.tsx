@@ -8,13 +8,14 @@ import LaptopIcon from "../icons/LaptopIcon";
 import MobileIcon from "../icons/MobileIcon";
 
 type Props = {
+  headerName: string;
   selectedDevice: DeviceType;
   setSelectedDevice: React.Dispatch<React.SetStateAction<DeviceType>>;
 };
 
 export type DeviceType = "desktop" | "mobile";
 
-export const Navbar = ({ selectedDevice, setSelectedDevice }: Props) => {
+export const Navbar = ({ selectedDevice, setSelectedDevice, headerName }: Props) => {
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 hidden h-16 min-h-16 grid-cols-3 items-center justify-center gap-0 gap-x-0 gap-y-0 border-b-[1px] border-b-[#16161626] bg-white px-10 lg:grid">
       <div className="justify-self flex items-center gap-x-4">
@@ -28,7 +29,7 @@ export const Navbar = ({ selectedDevice, setSelectedDevice }: Props) => {
           <div>Back</div>
         </Link>
         <div className="h-[1.75rem] w-px bg-gray-200"></div>
-        <div className="text-md font-semibold">Header 109</div>
+        <div className="text-md font-semibold">{headerName}</div>
       </div>
       <div className="flex h-full justify-center">
         <div
