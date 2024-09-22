@@ -1,7 +1,11 @@
+"use client";
+
 import { Button, Heading, Text, useMediaQuery } from "@relume_io/relume-ui";
+import type { ButtonProps } from "@relume_io/relume-ui";
+
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+
 import { useState, useEffect, useRef } from "react";
-import { DeviceType } from "./common/Navbar";
 import classNames from "classnames";
 import {
   Dialog,
@@ -12,11 +16,27 @@ import {
 } from "@relume_io/relume-ui";
 import PlayIcon from "./icons/PlayIcon";
 
-type Props = {
-  selectedDevice: DeviceType;
+type ImageProps = {
+  src: string;
+  alt?: string;
 };
 
-export const Header109 = ({ selectedDevice }: Props) => {
+type Props = {
+  heading: string;
+  description: string;
+  buttons: ButtonProps[];
+  images: ImageProps[];
+  selectedDevice: "mobile" | "desktop";
+};
+
+export type Header109Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
+
+export const Header109 = (props: Header109Props) => {
+  const { heading, description, buttons, images, selectedDevice } = {
+    ...Header109Defaults,
+    ...props,
+  } as Props;
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll({
     container: scrollContainerRef,
@@ -65,7 +85,7 @@ export const Header109 = ({ selectedDevice }: Props) => {
   return (
     <section
       id="relume"
-      className={classNames("relative flex  overflow-hidden bg-white transition-all", {
+      className={classNames("relative flex overflow-hidden bg-white transition-all", {
         "max-w-sm": selectedDevice === "mobile",
         "w-full": selectedDevice === "desktop",
       })}
@@ -77,20 +97,19 @@ export const Header109 = ({ selectedDevice }: Props) => {
         <div className="h-[300vh]">
           <div className="sticky top-0 flex w-full flex-col items-center justify-center">
             <div className="z-1 relative flex h-screen w-full items-center justify-center ">
-              <VideoModal width={width} height={height} translateY={translateY} />
+              <VideoModal width={width} height={height} translateY={translateY} images={images} />
             </div>
             <div className="relative items-center justify-center pb-28 pt-6">
               <div className="max-w-lg px-[5%]">
                 <div className="mx-auto w-full text-center">
-                  <Heading headingSize="h1">Medium length hero heading goes here</Heading>
-                  <Text className="text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim
-                    in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor
-                    interdum nulla, ut commodo diam libero vitae erat.
-                  </Text>
+                  <Heading headingSize="h1">{heading}</Heading>
+                  <Text className="text-base">{description}</Text>
                   <div className="flex flex-wrap items-center justify-center gap-x-4">
-                    <Button>Button</Button>
-                    <Button variant="secondary">Button</Button>
+                    {buttons.map((button, index) => (
+                      <Button key={index} variant={button.variant}>
+                        {button.title}
+                      </Button>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -107,9 +126,10 @@ type VideoModalProps = {
   width: MotionValue<string>;
   height: MotionValue<string>;
   translateY: MotionValue<string>;
+  images: ImageProps[];
 };
 
-const VideoModal = ({ width, height, translateY }: VideoModalProps) => {
+const VideoModal = ({ width, height, translateY, images }: VideoModalProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -124,9 +144,9 @@ const VideoModal = ({ width, height, translateY }: VideoModalProps) => {
         >
           <img
             className="h-full w-full bg-opacity-50 object-cover"
-            alt=""
+            alt={images[0].alt}
             loading="lazy"
-            src="https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316216244aee67_Placeholder%20Video%20-%20Landscape.svg"
+            src={images[0].src}
           />
           <div className="absolute bottom-0 left-0 right-0 top-0 z-10 bg-black/50"></div>
           <div className="absolute z-20 flex h-20 w-20 items-center justify-center text-white opacity-100">
@@ -149,6 +169,20 @@ const VideoModal = ({ width, height, translateY }: VideoModalProps) => {
       </DialogPortal>
     </Dialog>
   );
+};
+
+export const Header109Defaults: Props = {
+  heading: "Medium length hero heading goes here",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
+  buttons: [{ title: "Button" }, { title: "Button", variant: "secondary" }],
+  images: [
+    {
+      src: "https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316216244aee67_Placeholder%20Video%20-%20Landscape.svg",
+      alt: "Video placeholder",
+    },
+  ],
+  selectedDevice: "desktop",
 };
 
 export default VideoModal;

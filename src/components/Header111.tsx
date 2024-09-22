@@ -19,9 +19,9 @@ type Props = {
   selectedDevice: DeviceType;
 };
 
-export type Header83Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
+export type Header111Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
 
-export const Header111 = (props: Header83Props) => {
+export const Header111 = (props: Header111Props) => {
   const { heading, description, buttons, selectedDevice } = {
     ...Header83Defaults,
     ...props,
@@ -47,7 +47,7 @@ export const Header111 = (props: Header83Props) => {
               opacity: 1,
             }}
           >
-            <div className="h-full py-24">
+            <div className="h-full py-16 md:py-24">
               <div
                 className={classNames("grid h-full gap-x-12 md:gap-x-20", {
                   "grid-cols-1": renderMobile,
@@ -92,7 +92,7 @@ export const Header111 = (props: Header83Props) => {
   );
 };
 
-export const Header83Defaults: Header83Props = {
+export const Header83Defaults: Header111Props = {
   heading: "Medium length hero heading goes here",
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
