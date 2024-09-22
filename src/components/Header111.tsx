@@ -27,9 +27,9 @@ export const Header111 = (props: Header111Props) => {
     ...props,
   } as Props;
 
-  const isTabMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
-  const renderMobile = isTabMobile || selectedDevice === "mobile";
+  const renderMobile = isMobile || selectedDevice === "mobile";
 
   return (
     <section
