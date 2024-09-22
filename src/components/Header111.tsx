@@ -59,7 +59,7 @@ export const Header111 = (props: Header111Props) => {
                     {heading}
                   </h1>
                 </div>
-                <div className="flex flex-col justify-end">
+                <div className="mx-[7.5%] flex flex-col justify-end">
                   <p className="text-text-alternative md:text-md">{description}</p>
                   <div className="mt-6 flex gap-x-4 md:mt-8">
                     {buttons.map((button, index) => (
